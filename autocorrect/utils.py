@@ -18,7 +18,7 @@ from contextlib import closing
 from itertools import chain
 
 PATH = os.path.abspath(os.path.dirname(__file__))
-BZ2 = 'words.bz2'
+BZ2 = 'words.tar.bz2'
 RE = '[A-Za-z]+'
 
 def words_from_archive(filename, include_dups=False, map_case=False):
