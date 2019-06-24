@@ -13,19 +13,21 @@ Author: Jonas McCallum
 https://github.com/foobarmus/autocorrect
 
 """
-import re, os, tarfile
+import os
+import re
+import zipfile
 from contextlib import closing
 
 PATH = os.path.abspath(os.path.dirname(__file__))
-BZ2 = 'words.tar.bz2'
 RE = '[A-Za-z]+'
+ZIP = 'words.zip'
+ZIP_FOLDER = 'words'
 
 def words_from_archive(filename, include_dups=False, map_case=False):
     """extract words from a text file in the archive"""
-    bz2 = os.path.join(PATH, BZ2)
-    tar_path = '{}/{}'.format('words', filename)
-    with closing(tarfile.open(bz2, 'r:bz2')) as t:
-        with closing(t.extractfile(tar_path)) as f:
+    zip_path = os.path.join(PATH, ZIP)
+    with closing(zipfile.ZipFile(zip_path)) as t:
+        with closing(t.open(os.path.join(ZIP_FOLDER, filename))) as f:
             words = re.findall(RE, f.read().decode(encoding='utf-8'))
     if include_dups:
         return words
