@@ -4,9 +4,13 @@ from copy import deepcopy
 PATH = os.path.abspath(os.path.dirname(__file__))
 SOURCE_DIR = os.path.split(PATH)[0]
 sys.path.append(SOURCE_DIR)
+preimport = time.clock()
 from autocorrect import spell
 from autocorrect.word import known
 from autocorrect.nlp_parser import NLP_COUNTS
+postimport = time.clock()
+
+print(f'module import time: {postimport - preimport}')
 
 MSG = 'spell({}) => {} ({}); should be {} ({})'
 RESULT = 'bad: {}/{}, % correct: {}, unknown: {}, secs: {}'
@@ -25,7 +29,7 @@ def spelltest(tests, verbose=False):
                     print(MSG.format(incorrect_spelling, w, NLP_COUNTS[w],
                                      target, NLP_COUNTS[target]))
     return RESULT.format(bad, n, int(100. - 100. * bad / n), 
-                         unknown, int(time.clock() - start))
+                         unknown, (time.clock() - start))
 
 tests1 = {'access': 'acess',
           'accessing': 'accesing',
