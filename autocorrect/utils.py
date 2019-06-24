@@ -27,7 +27,7 @@ def words_from_archive(filename, include_dups=False, map_case=False):
     """extract words from a text file in the archive"""
     zip_path = os.path.join(PATH, ZIP)
     with closing(zipfile.ZipFile(zip_path)) as t:
-        with closing(t.open(os.path.join(ZIP_FOLDER, filename))) as f:
+        with closing(t.open(f'{ZIP_FOLDER}/{filename}')) as f:
             words = re.findall(RE, f.read().decode(encoding='utf-8'))
     if include_dups:
         return words
