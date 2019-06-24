@@ -22,5 +22,5 @@ def spell(word):
     candidates = (common([word]) or exact([word]) or known([word]) or
                   known(w.typos()) or common(w.double_typos()) or
                   [word])
-    correction = max(candidates, key=NLP_COUNTS.get)
+    correction = max(candidates, key=lambda item: NLP_COUNTS[item])
     return get_case(word, correction)

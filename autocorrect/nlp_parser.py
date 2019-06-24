@@ -13,12 +13,14 @@ Author: Jonas McCallum
 https://github.com/foobarmus/autocorrect
 
 """
-from autocorrect.utils import words_from_archive, zero_default_dict
+from autocorrect.utils import words_from_archive
+from collections import defaultdict
 
 def parse(lang_sample):
     """tally word popularity using novel extracts, etc"""
     words = words_from_archive(lang_sample, include_dups=True)
-    counts = zero_default_dict()
+    counts = defaultdict(int)
+
     for word in words:
         counts[word] += 1
     return set(words), counts

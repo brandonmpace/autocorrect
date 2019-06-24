@@ -41,17 +41,3 @@ def concat(*args):
         return ''.join(args)
     except TypeError:
         return ''.join(chain.from_iterable(args))
-
-class Zero(dict):
-    """dict with a zero default"""
-
-    def __getitem__(self, key):
-        return self.get(key)
-
-    def get(self, key):
-        try:
-            return super(Zero, self).__getitem__(key)
-        except KeyError:
-            return 0
-
-zero_default_dict = Zero
