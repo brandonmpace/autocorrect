@@ -15,7 +15,6 @@ https://github.com/foobarmus/autocorrect
 """
 import re, os, tarfile
 from contextlib import closing
-from itertools import chain
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 BZ2 = 'words.tar.bz2'
@@ -34,10 +33,3 @@ def words_from_archive(filename, include_dups=False, map_case=False):
         return {w.lower():w for w in words}
     else:
         return set(words)
-
-def concat(*args):
-    """reversed('th'), 'e' => 'hte'"""
-    try:
-        return ''.join(args)
-    except TypeError:
-        return ''.join(chain.from_iterable(args))

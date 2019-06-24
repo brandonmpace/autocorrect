@@ -13,7 +13,7 @@ Author: Jonas McCallum
 https://github.com/foobarmus/autocorrect
 
 """
-from autocorrect.utils import concat
+
 from autocorrect.nlp_parser import NLP_WORDS
 from autocorrect.word_lists import LOWERCASE, MIXED_CASE
 from autocorrect.word_lists import LOWERED, CASE_MAPPED
@@ -41,23 +41,23 @@ class Word(object):
 
     def _deletes(self):
         """th"""
-        return {concat(a, b[1:])
+        return {f'{a}{b[1:]}'
                 for a, b in self.slices[:-1]}
 
     def _transposes(self):
         """teh"""
-        return {concat(a, reversed(b[:2]), b[2:])
+        return {f'{a}{b[:2][::-1]}{b[2:]}'
                 for a, b in self.slices[:-2]}
 
     def _replaces(self):
         """tge"""
-        return {concat(a, c, b[1:])
+        return {f'{a}{c}{b[1:]}'
                 for a, b in self.slices[:-1]
                 for c in ALPHABET}
 
     def _inserts(self):
         """thwe"""
-        return {concat(a, c, b)
+        return {f'{a}{c}{b}'
                 for a, b in self.slices
                 for c in ALPHABET}
 
